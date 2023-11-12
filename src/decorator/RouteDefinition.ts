@@ -1,5 +1,5 @@
 export interface RouteDefinition {
-	// Path to our route
+	// Path to the route
 	param: string;
 	// HTTP Request method (get, post, ...)
 	method: string; // 'get' | 'post' | 'delete' | 'options' | 'put';

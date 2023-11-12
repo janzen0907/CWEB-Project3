@@ -1,5 +1,6 @@
 import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm'
 import {IsOptional, Length, IsNotEmpty, Max, Min} from 'class-validator'
+
 @Entity()
 export class Car {
 	@PrimaryGeneratedColumn()
