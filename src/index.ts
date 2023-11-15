@@ -5,6 +5,7 @@ import { AppDataSource } from './data-source'
 import CarController from './controller/CarController'
 import * as createError from 'http-errors'
 import {createExpressServer} from 'routing-controllers'
+import CarOwnerController from './controller/CarOwnerController'
 
 const corsOptions = {
 	origin: /localhost\:\d{4,5}$/i, // localhost any 4 digit port
@@ -21,7 +22,7 @@ AppDataSource.initialize().then(async () => {
 	// create express app
 	const app = createExpressServer({
 		cors: corsOptions, //sent the cors options
-		controllers: [CarController] //use the car controller
+		controllers: [CarController, CarOwnerController] //use the car controller
 
 	})
 	app.use(bodyParser.json())
@@ -41,5 +42,7 @@ AppDataSource.initialize().then(async () => {
 	app.listen(3000)
 
 	console.log('Express server has started on port 3000. Open http://localhost:3000/cars to see results')
+	console.log('Express server has started on port 3000. Open http://localhost:3000/carowner to see results')
+
 
 }).catch(error => console.log(error))
