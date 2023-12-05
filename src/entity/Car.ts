@@ -43,15 +43,16 @@ export class Car {
 	@IsNotEmpty({message: "Drivetrain is required"})
 		drivetrain: string
 
-	//@Column('int', {})
-		//numUpvotes: number
 
-	//@Column('int', {})
-		//numDownvotes: number
-
-	//@OneToOne(type => Trader)
-	//@JoinColumn()
-		//traderID: number
+	//  @Column('int', {})
+	// 	numUpvotes: number
+	//
+	// @Column('int', {})
+	// 	numDownvotes: number
+	//
+	// @OneToOne(type => Trader)
+	// @JoinColumn()
+	// 	traderID: number
 
 
 }

@@ -2,13 +2,16 @@ import 'reflect-metadata'
 import { DataSource } from 'typeorm'
 import { Car } from './entity/Car'
 import {CarOwner} from './entity/CarOwner'
+import {Trader} from "./entity/Trader";
 
 export const AppDataSource = new DataSource({
 	type: 'better-sqlite3',
 	database: 'sqlite.db',
-	synchronize: true,
+	// I changed sync to false because it was trying to create a new table
+	//every time the server is ran.
+	synchronize: false,
 	logging: false,
-	entities: [Car, CarOwner],
+	entities: [Car, Trader],
 	migrations: [],
 	subscribers: [],
 })
