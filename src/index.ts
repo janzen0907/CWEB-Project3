@@ -6,6 +6,7 @@ import CarController from './controller/CarController'
 import * as createError from 'http-errors'
 import {createExpressServer} from 'routing-controllers'
 import CarOwnerController from './controller/CarOwnerController'
+import TraderController from "./controller/TraderController";
 
 const corsOptions = {
 	origin: /localhost\:\d{4,5}$/i, // localhost any 4 digit port
@@ -22,7 +23,7 @@ AppDataSource.initialize().then(async () => {
 	// create express app
 	const app = createExpressServer({
 		cors: corsOptions, //sent the cors options
-		controllers: [CarController, CarOwnerController] //use the car controller
+		controllers: [CarController, TraderController] //use the car controller
 
 	})
 	app.use(bodyParser.json())
