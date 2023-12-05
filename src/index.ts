@@ -5,8 +5,7 @@ import { AppDataSource } from './data-source'
 import CarController from './controller/CarController'
 import * as createError from 'http-errors'
 import {createExpressServer} from 'routing-controllers'
-import CarOwnerController from './controller/CarOwnerController'
-import TraderController from "./controller/TraderController";
+import TraderController from './controller/TraderController';
 
 const corsOptions = {
 	origin: /localhost\:\d{4,5}$/i, // localhost any 4 digit port
@@ -26,7 +25,15 @@ AppDataSource.initialize().then(async () => {
 		controllers: [CarController, TraderController] //use the car controller
 
 	})
-	app.use(bodyParser.json())
+	//app.use(bodyParser.json())
+	app.use(bodyParser.json(), (err, req, res, next) => {
+		if (err) {
+			console.error(err)
+			res.status(500).send('Error parsing request body')
+		} else {
+			next()
+		}
+	})
 
 	app.use(function(req, res, next) {
 		next(createError(404))

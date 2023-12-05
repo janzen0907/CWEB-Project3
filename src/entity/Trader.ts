@@ -4,7 +4,7 @@ import {IsEmail, IsNotEmpty, IsOptional, length, Length} from "class-validator";
 
 @Entity()
 export class Trader{
-    @PrimaryGeneratedColumn()
+    @PrimaryGeneratedColumn('increment')
     @IsOptional()
         id: number
 
