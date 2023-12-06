@@ -93,9 +93,9 @@ export default class TraderController {
 	@Post('/trader')
 	async create(@Body() reqBody:any,@Res() res:Response, @Req() req: Request) {
 		//Check the headers for the authorization token
-		const token = req.headers.authorization
+		//const token = req.headers.authorization
 		//If token is Bearer admin then they can Update then entry in the DB
-		if (token == 'Bearer admin') {
+		//if (token == 'Bearer admin') {
 			const TraderToCreate = Object.assign(new Trader(), reqBody)
 			const violations = await validate(TraderToCreate, this.validOptions)
 			if (violations.length) {
@@ -104,12 +104,12 @@ export default class TraderController {
 			} else {
 				return this.TraderRepo.save(TraderToCreate)
 			}
-		}
+		//}
 		//They do not have access return a message
-		else
-		{
-			await  res.status(403).json({message: 'You do not have access'})
-		}
+		//else
+		//{
+		//	await  res.status(403).json({message: 'You do not have access'})
+		//}
 	}
 
 

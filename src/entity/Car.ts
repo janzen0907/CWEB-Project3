@@ -1,10 +1,19 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToOne, JoinColumn} from 'typeorm'
+import {
+	Entity,
+	PrimaryGeneratedColumn,
+	Column,
+	OneToOne,
+	JoinColumn,
+	PrimaryColumn,
+	OneToMany,
+	ManyToOne
+} from 'typeorm'
 import {IsOptional, Length, IsNotEmpty, Max, Min} from 'class-validator'
 import {Trader} from './Trader'
 
 @Entity()
 export class Car {
-	@PrimaryGeneratedColumn()
+	@PrimaryGeneratedColumn('increment')
 	@IsOptional()
 	id: number
 
@@ -44,15 +53,29 @@ export class Car {
 	transmission: string
 
 
-	// @Column('int', {})
-	// numUpvotes: number
+	 @Column('int', {default: 0})
+	 @IsOptional()
+	 numUpVotes: number
 	// //
-	// @Column('int', {})
-	// numDownvotes: number
+	 @Column('int', {default: 0})
+	 @IsOptional()
+	 numDownVotes: number
 	// //
-	// @OneToOne(type => Trader)
-	// @JoinColumn()
-	// traderID: number
+	@Column()
+	@IsOptional()
+	traderEmail: string
+
+	@Column()
+	@IsOptional()
+	traderName: string
+
+	 @ManyToOne(() => Trader, (traderE) => traderE.email)
+	 @JoinColumn({ name: 'traderEmail' })
+	 traderE: Trader
+
+	@ManyToOne(() => Trader, (traderN) => traderN.name)
+	@JoinColumn({ name: 'traderName' })
+	traderN: Trader
 
 
 }

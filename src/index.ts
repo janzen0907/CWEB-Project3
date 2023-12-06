@@ -40,7 +40,7 @@ AppDataSource.initialize().then(async () => {
 	})
 	// error handler
 	app.use(function(err, req, res, next) {
-		if(!res._headerSent) {
+		if(!res.headerSent) {
 			res.status(err.status || 500)
 			res.json({status: err.status, message: err.message, stack: err.stack.split(/\s{4,}/)})
 		}

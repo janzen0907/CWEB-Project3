@@ -91,18 +91,20 @@ export default class CarController {
 	@Post('/cars')
 	async create(@Body() reqBody: any, @Res() res: Response, @Req() req: Request) {
 		//Check the headers for the authorization token
+		//set the id here maybe?
+
 		//const token = req.headers.authorization
 		//If token is Bearer admin then they can Update then entry in the DB
 		//if (token == 'Bearer admin') {
 		console.log(reqBody)
 		const CarToCreate = Object.assign(new Car(), reqBody)
-		//const violations = await validate(CarToCreate, this.validOptions)
-		//if (violations.length) {
-		//	res.statusCode = 422 // Unprocessable Entity
-		//	return violations
-		//} else {
-		return this.CarRepo.save(CarToCreate)
-		//}
+		 //const violations = await validate(CarToCreate, this.validOptions)
+		 //if (violations.length) {
+		 	//res.statusCode = 422 // Unprocessable Entity
+		 	//return violations
+		 //} else {
+			return this.CarRepo.save(CarToCreate)
+		// }
 	}//
 	//They do not have access return a message
 	//else

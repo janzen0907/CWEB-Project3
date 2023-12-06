@@ -1,4 +1,4 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, PrimaryGeneratedColumn, Unique} from "typeorm";
 import {IsEmail, IsNotEmpty, IsOptional, length, Length} from "class-validator";
 
 
@@ -8,12 +8,12 @@ export class Trader{
     @IsOptional()
         id: number
 
-    @Column('varchar')
+    @Column('varchar', {unique: true})
     @IsEmail({}, {message: "Email must be in proper format "})
     @IsNotEmpty({message: "Email is required"})
         email: string
 
-    @Column('varchar', {length: 300})
+    @Column('varchar', {length: 300, unique:true})
     @Length(1, 300, {message: 'Name must be between $Constraint1 and $Constraint2 charecters'})
     @IsNotEmpty({message: "Name is required"})
         name: string
