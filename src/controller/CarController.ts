@@ -76,6 +76,7 @@ export default class CarController {
 			const violations = await validate(CarToUpdate, this.validOptions)
 			if (violations.length) {
 				res.statusCode = 422 // Unprocessable Entity
+				console.log(violations)
 				return violations
 			} else {
 				return this.CarRepo.save(CarToUpdate)

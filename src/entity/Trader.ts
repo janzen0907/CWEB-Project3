@@ -15,7 +15,7 @@ export class Trader{
 
     @Column('varchar', {length: 300, unique:true})
     @Length(1, 300, {message: 'Name must be between $Constraint1 and $Constraint2 charecters'})
-    @IsNotEmpty({message: 'Name is required'})
+    //@IsNotEmpty({message: 'Name is required'})
     	name: string
 
     @Column('int')
