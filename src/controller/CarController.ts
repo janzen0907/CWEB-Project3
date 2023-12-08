@@ -9,7 +9,7 @@ import {CarLookup} from '../entity/CarLookup'
 @JsonController()
 export default class CarController {
 	private CarRepo = AppDataSource.getRepository(Car) // Car Repository
-	private CarLookupRepo = AppDataSource.getRepository(CarLookup)
+	// private CarLookupRepo = AppDataSource.getRepository(CarLookup)
 	private validOptions: ValidatorOptions = {
 		stopAtFirstError: true,
 		skipMissingProperties: false,
@@ -94,9 +94,9 @@ export default class CarController {
 	// 		}, car)
 	// 	}
 	// }
-	
-	
-	
+
+
+
 }
 
 
