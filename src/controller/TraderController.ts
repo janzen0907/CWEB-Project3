@@ -73,7 +73,6 @@ export default class TraderController {
 	}
 
 	private async deleteAssociatedCars(email: string): Promise<void> {
-		// Assuming that there's a CarsRepo, adjust this based on your actual repository
 		const carsToDelete = await this.CarRepo.find({where: {traderEmail: email}})
 
 		// Delete each associated car

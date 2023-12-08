@@ -69,6 +69,7 @@ export default class CarController {
 		//If token is Bearer admin then they can Update then entry in the DB
 		//if(token == 'Bearer admin')
 		//{
+		console.log(confirmid)
 		const CarToUpdate = await this.CarRepo.preload(reqBody)
 		if (!CarToUpdate || CarToUpdate.id != confirmid) {
 			// do nothing
@@ -79,6 +80,7 @@ export default class CarController {
 				console.log(violations)
 				return violations
 			} else {
+				await this.updateUpVotes(CarToUpdate.id)
 				return this.CarRepo.save(CarToUpdate)
 			}
 		}
@@ -86,6 +88,16 @@ export default class CarController {
 		//} else{
 		//	await  res.status(403).json({message: 'You do not have access'})
 		//}
+
+	}
+
+	private async updateUpVotes(carID: number): Promise<void> {
+		const userToUpdate = await this.CarRepo.findOne({where: {id: carID}})
+		if (userToUpdate) {
+			userToUpdate.numUpVotes += 1
+			await this.CarRepo.save(userToUpdate)
+
+		}
 
 	}
 
@@ -99,12 +111,12 @@ export default class CarController {
 		//if (token == 'Bearer admin') {
 		console.log(reqBody)
 		const CarToCreate = Object.assign(new Car(), reqBody)
-		 //const violations = await validate(CarToCreate, this.validOptions)
-		 //if (violations.length) {
-		 	//res.statusCode = 422 // Unprocessable Entity
-		 	//return violations
-		 //} else {
-			return this.CarRepo.save(CarToCreate)
+		//const violations = await validate(CarToCreate, this.validOptions)
+		//if (violations.length) {
+		//res.statusCode = 422 // Unprocessable Entity
+		//return violations
+		//} else {
+		return this.CarRepo.save(CarToCreate)
 		// }
 	}//
 	//They do not have access return a message
