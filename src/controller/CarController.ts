@@ -4,11 +4,12 @@ import {validate, ValidatorOptions} from 'class-validator'
 import {AppDataSource} from '../data-source'
 import {Body, Delete, Get, JsonController, Param, Post, Put, Req, Res} from 'routing-controllers'
 import {Like} from 'typeorm'
+import {CarLookup} from '../entity/CarLookup'
 
-//@Controller('/Cars')
 @JsonController()
 export default class CarController {
 	private CarRepo = AppDataSource.getRepository(Car) // Car Repository
+	private CarLookupRepo = AppDataSource.getRepository(CarLookup)
 	private validOptions: ValidatorOptions = {
 		stopAtFirstError: true,
 		skipMissingProperties: false,
@@ -42,33 +43,14 @@ export default class CarController {
 
 	@Delete('/cars/:id')
 	async delete(@Req() req: Request, @Res() res: Response) {
-		//Check the headers for the authorization token
-		//const token = req.headers.authorization
-		//If token is Bearer admin then they can delete from the db
-		//if(token == 'Bearer admin')
-		//{
 		const CarToRemove = await this.CarRepo.findOne({where: {id: req.params.id}})
 		res.statusCode = 204
 		if (CarToRemove) return this.CarRepo.remove(CarToRemove)
-		else {
-
-		}
-		//}
-		//They do not have access return a message
-		//else
-		//{
-		//	await  res.status(403).json({message: 'You do not have access'})
-		//}
-
+		else {/* empty */}
 	}
 
 	@Put('/cars/:confirmid')
 	async update(@Body() reqBody: any, @Param('confirmid') confirmid: number, @Res() res: Response, @Req() req: Request) {
-		//Check the headers for the authorization token
-		//const token = req.headers.authorization
-		//If token is Bearer admin then they can Update then entry in the DB
-		//if(token == 'Bearer admin')
-		//{
 		const CarToUpdate = await this.CarRepo.preload(reqBody)
 		if (!CarToUpdate || CarToUpdate.id != confirmid) {
 			// do nothing
@@ -81,36 +63,40 @@ export default class CarController {
 				return this.CarRepo.save(CarToUpdate)
 			}
 		}
-		//They do not have access return a message
-		//} else{
-		//	await  res.status(403).json({message: 'You do not have access'})
-		//}
-
 	}
 
 	@Post('/cars')
 	async create(@Body() reqBody: any, @Res() res: Response, @Req() req: Request) {
-		//Check the headers for the authorization token
-		//set the id here maybe?
-
-		//const token = req.headers.authorization
-		//If token is Bearer admin then they can Update then entry in the DB
-		//if (token == 'Bearer admin') {
 		console.log(reqBody)
 		const CarToCreate = Object.assign(new Car(), reqBody)
-		 //const violations = await validate(CarToCreate, this.validOptions)
-		 //if (violations.length) {
-		 	//res.statusCode = 422 // Unprocessable Entity
-		 	//return violations
-		 //} else {
-			return this.CarRepo.save(CarToCreate)
-		// }
-	}//
-	//They do not have access return a message
-	//else
-	//{
-	//	await  res.status(403).json({message: 'You do not have access'})
-	//}
+		// Violations break the page
+		 // const violations = await validate(CarToCreate, this.validOptions)
+		 // if (violations.length) {
+		 // 	res.statusCode = 422 // Unprocessable Entity
+		 // 	return violations
+		 // } else {
+		return this.CarRepo.save(CarToCreate)
+		 // }
+	}
+
+	// private async updateCarLookup(reqBody: any,carID: number): Promise<void> {
+	// 	const carToUpdate = await this.CarLookupRepo.find({where: {carID: carID}})
+	//
+	// 	// add associated car to lookup table
+	// 	for (const car of carToUpdate) {
+	// 		const newCar = Object.assign(new Car(), reqBody)
+	//
+	// 		await this.CarRepo.upsert({
+	// 			carID: newCar.id,
+	// 			carMake: newCar.make,
+	// 			carModel: newCar.model,
+	// 			carYear: newCar.year,
+	// 		}, car)
+	// 	}
+	// }
+	
+	
+	
 }
 
 

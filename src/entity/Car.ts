@@ -14,7 +14,6 @@ export class Car {
 	@IsOptional()
 		id: number
 
-
 	@Column('nvarchar', {length: 50})
 	@Length(1, 50, {message: 'Make must be from $constraint1 to $constraint2 characters'})
 	@IsNotEmpty({message: 'Make is required'})
@@ -57,7 +56,7 @@ export class Car {
 	 @Column('int', {default: 0})
 	 @IsOptional()
 	 	numDownVotes: number
-	// //
+
 	@Column()
 		traderEmail: string
 

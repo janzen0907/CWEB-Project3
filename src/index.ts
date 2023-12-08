@@ -5,7 +5,7 @@ import { AppDataSource } from './data-source'
 import CarController from './controller/CarController'
 import * as createError from 'http-errors'
 import {createExpressServer} from 'routing-controllers'
-import TraderController from './controller/TraderController';
+import TraderController from './controller/TraderController'
 
 const corsOptions = {
 	origin: /localhost\:\d{4,5}$/i, // localhost any 4 digit port
